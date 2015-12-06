@@ -16,7 +16,7 @@ import AVFoundation
 
 var currentItemStatus = "currentItem.status"
 var mcontext = 0
-class ViewController: UIViewController {
+class ViewController: UIViewController,AVPictureInPictureControllerDelegate {
 
     lazy var player:AVPlayer = {
         let p = AVPlayer()
@@ -49,9 +49,21 @@ class ViewController: UIViewController {
                 return
             }
             pipcontroller = AVPictureInPictureController(playerLayer: pipView.pipiplayer)
+            pipcontroller?.delegate = self
         }
     }
-
+    func pictureInPictureControllerWillStartPictureInPicture(pictureInPictureController: AVPictureInPictureController) {
+        print("will start")
+    }
+    
+    func pictureInPictureControllerDidStartPictureInPicture(pictureInPictureController: AVPictureInPictureController) {
+        print("did start")
+    }
+    
+    func pictureInPictureController(pictureInPictureController: AVPictureInPictureController, failedToStartPictureInPictureWithError error: NSError) {
+        print("failedToStart")
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
